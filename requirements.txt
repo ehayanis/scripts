@@ -1,0 +1,4 @@
+yagmail
+ldap3 
+requests 
+pandas
