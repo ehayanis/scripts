@@ -36,8 +36,8 @@ Admin Team
 def check_user_in_ldap(username):
     server = Server(LDAP_SERVER, get_info=ALL)
     conn = Connection(server, LDAP_USER, LDAP_PASSWORD, auto_bind=True)
-    search_filter = f'(sAMAccountName={username})'
-    conn.search(LDAP_SEARCH_BASE, search_filter, attributes=['distinguishedName'])
+    search_filter = f'(|(uid={username})(cn={username})(mail={username}))'
+    conn.search(LDAP_SEARCH_BASE, search_filter, attributes=['cn'])
     return len(conn.entries) > 0
 
 def get_jfrog_last_login(username):
