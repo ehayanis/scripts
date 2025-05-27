@@ -14,3 +14,11 @@ WHERE u.active = 'T'
     SELECT 1 FROM cwd_user_attribute a
     WHERE a.user_id = u.id AND a.attribute_name = 'lastAuthenticated'
   );
+
+
+curl -u admin:your_password \
+  -X PUT \
+  -H "Content-Type: application/json" \
+  -d '{"active": false}' \
+  "https://your-confluence-url/rest/api/user?username=username_to_disable"
+  
