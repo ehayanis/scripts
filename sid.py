@@ -36,35 +36,19 @@ binary_sid_map = {sid_string_to_binary(sid): sid for sid in sids}
 server = Server(AD_SERVER, get_info=ALL)
 conn = Connection(server, user=AD_USER, password=AD_PASSWORD, authentication=NTLM, auto_bind=True)
 
-# Search for all users (or use a filter to reduce scope)
-conn.search(
+entries = conn.extend.standard.paged_search(
     search_base=SEARCH_BASE,
-    search_filter='(objectClass=user)',
-    attributes=['objectSid', 'sAMAccountName', 'displayName']
+    search_filter='(&(objectClass=user)(objectCategory=person))',
+    search_scope=SUBTREE,
+    attributes=['sAMAccountName', 'displayName', 'objectSid'],
+    paged_size=1000,
+    generator=False  # return as list
 )
 
-# Match SIDs
-for entry in conn.entries:
-    sid_bytes = entry.objectSid.value  # This is in bytes
-    if sid_bytes in binary_sid_map:
-        print(f"{binary_sid_map[sid_bytes]} => {entry.sAMAccountName} ({entry.displayName})")
-
+# 🔄 Match by SID
+for entry in entries:
+    attr = entry.get('attributes', {})
+    sid = attr.get('objectSid')
+    if sid in sids:
+        print(f"{sid} => {attr.get('sAMAccountName')} ({attr.get('displayName')})")
 conn.unbind()
-
-
-
-
-def binary_sid_to_string(sid_bin):
-    revision = sid_bin[0]
-    sub_authority_count = sid_bin[1]
-    identifier_authority = int.from_bytes(sid_bin[2:8], byteorder='big')
-    sub_authorities = [struct.unpack('<I', sid_bin[8 + 4*i:12 + 4*i])[0] for i in range(sub_authority_count)]
-    return f"S-{revision}-{identifier_authority}-" + '-'.join(str(sa) for sa in sub_authorities)
-
-
-for entry in conn.entries:
-    sid_bytes = entry.objectSid.value
-    if sid_bytes:
-        sid_str = binary_sid_to_string(sid_bytes)
-        if sid_str in sids:
-            print(f"{sid_str} => {entry.sAMAccountName} ({entry.displayName})")
