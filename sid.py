@@ -52,3 +52,45 @@ for entry in entries:
     if sid in sids:
         print(f"{sid} => {attr.get('sAMAccountName')} ({attr.get('displayName')})")
 conn.unbind()
+
+
+ef get_user_sid_by_id(ad_server, ad_user, ad_password, search_base, user_id):
+    """
+    Lookup a user's SID from Active Directory using their sAMAccountName.
+
+    :param ad_server: LDAP server URI (e.g. 'ldap://dc01.domain.local')
+    :param ad_user: AD bind user in 'DOMAIN\\username' format
+    :param ad_password: Password for AD user
+    :param search_base: LDAP search base (e.g. 'DC=your,DC=domain,DC=com')
+    :param user_id: The sAMAccountName (username) to search for
+    :return: Dictionary with user info if found, else None
+    """
+    try:
+        server = Server(ad_server, get_info=ALL)
+        conn = Connection(server, user=ad_user, password=ad_password, authentication=NTLM, auto_bind=True)
+
+        search_filter = f'(sAMAccountName={user_id})'
+
+        conn.search(
+            search_base=search_base,
+            search_filter=search_filter,
+            attributes=['sAMAccountName', 'objectSid', 'displayName']
+        )
+
+        if conn.entries:
+            entry = conn.entries[0]
+            result = {
+                "sAMAccountName": str(entry.sAMAccountName),
+                "displayName": str(entry.displayName),
+                "objectSid": str(entry.objectSid)
+            }
+            conn.unbind()
+            return result
+        else:
+            conn.unbind()
+            print(f"No user found with ID '{user_id}'")
+            return None
+
+    except Exception as e:
+        print(f"Error during LDAP lookup: {e}")
+        return None
