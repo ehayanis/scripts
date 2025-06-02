@@ -50,3 +50,21 @@ for entry in conn.entries:
         print(f"{binary_sid_map[sid_bytes]} => {entry.sAMAccountName} ({entry.displayName})")
 
 conn.unbind()
+
+
+
+
+def binary_sid_to_string(sid_bin):
+    revision = sid_bin[0]
+    sub_authority_count = sid_bin[1]
+    identifier_authority = int.from_bytes(sid_bin[2:8], byteorder='big')
+    sub_authorities = [struct.unpack('<I', sid_bin[8 + 4*i:12 + 4*i])[0] for i in range(sub_authority_count)]
+    return f"S-{revision}-{identifier_authority}-" + '-'.join(str(sa) for sa in sub_authorities)
+
+
+for entry in conn.entries:
+    sid_bytes = entry.objectSid.value
+    if sid_bytes:
+        sid_str = binary_sid_to_string(sid_bytes)
+        if sid_str in sids:
+            print(f"{sid_str} => {entry.sAMAccountName} ({entry.displayName})")
