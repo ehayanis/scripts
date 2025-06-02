@@ -1,39 +1,50 @@
 from ldap3 import Server, Connection, ALL, NTLM
+import struct
 import base64
 
-# 🔧 AD connection settings
-AD_SERVER = 'your.ad.domain.com'         # e.g. 'ldap://dc01.domain.local'
-AD_USER = 'DOMAIN\\your_username'        # Format: DOMAIN\\username
+# 🛠️ AD Settings
+AD_SERVER = 'ldap://your.ad.server'        # e.g., ldap://dc01.domain.local
+AD_USER = 'DOMAIN\\your_username'          # NTLM format
 AD_PASSWORD = 'your_password'
-SEARCH_BASE = 'DC=domain,DC=com'         # Adjust based on your AD domain
+SEARCH_BASE = 'DC=your,DC=domain,DC=com'   # Set to your domain DN
 
 # 🔍 List of SIDs to resolve
 sids = [
     "S-1-5-21-309284222-728865996-3343784714-6488",
     "S-1-5-21-3584301268-2236452263-9056116576-17629",
-    # Add more SIDs here
+    # Add more as needed
 ]
 
-def sid_to_binary(sid_string):
-    import win32security
-    return win32security.ConvertStringSidToSid(sid_string)
+# 🔄 Convert SID string to binary (works on Linux)
+def sid_string_to_binary(sid_str):
+    parts = sid_str.strip().split('-')
+    revision = int(parts[1])
+    sub_authorities = list(map(int, parts[3:]))
+    identifier_authority = int(parts[2])
 
-def sid_to_base64(sid_string):
-    # For use in LDAP filters (objectSid)
-    import win32security
-    binary_sid = win32security.ConvertStringSidToSid(sid_string)
-    return binary_sid
+    # SID header: revision (1 byte) + count (1 byte)
+    sid_bin = struct.pack('B', revision) + struct.pack('B', len(sub_authorities))
 
-# Connect to AD
+    # Identifier Authority is 6 bytes, big-endian
+    sid_bin += struct.pack('>Q', identifier_authority)[2:]
+
+    # Each sub-authority is 4 bytes, little-endian
+    for sub_auth in sub_authorities:
+        sid_bin += struct.pack('<I', sub_auth)
+
+    return sid_bin
+
+# 🔌 Connect to LDAP
 server = Server(AD_SERVER, get_info=ALL)
 conn = Connection(server, user=AD_USER, password=AD_PASSWORD, authentication=NTLM, auto_bind=True)
 
-# Perform lookup
+# 🔍 Search each SID
 for sid in sids:
     try:
-        binary_sid = sid_to_base64(sid)
-        base64_sid = base64.b64encode(binary_sid).decode('utf-8')
-        search_filter = f'(objectSid={binary_sid})'
+        binary_sid = sid_string_to_binary(sid)
+        # Encode for LDAP filter: base64 format
+        b64_sid = base64.b64encode(binary_sid).decode('utf-8')
+        search_filter = f'(objectSid:: {b64_sid})'
 
         conn.search(
             search_base=SEARCH_BASE,
@@ -46,7 +57,6 @@ for sid in sids:
                 print(f"{sid} => {entry.sAMAccountName} ({entry.displayName})")
         else:
             print(f"{sid} => No match found.")
-
     except Exception as e:
         print(f"Error resolving SID {sid}: {e}")
 
