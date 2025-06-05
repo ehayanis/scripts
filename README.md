@@ -78,3 +78,42 @@ for sid in sids:
         print(f"Error resolving SID {sid}: {e}")
 
 conn.unbind()
+
+
+
+
+Body:
+
+Dear [User First Name or Team],
+
+We are reaching out to inform you that your current API key used with JFrog Artifactory is set to expire in 10 days, as part of JFrog's platform-wide deprecation of API keys.
+
+To ensure uninterrupted access to Artifactory, you must transition to using Identity Tokens instead of API keys.
+
+🔄 Why the change?
+JFrog is deprecating API keys in favor of Identity Tokens, which offer improved security, manageability, and compliance with modern authentication standards.
+
+🧭 What you need to do:
+Please follow these simple steps to generate and use an Identity Token:
+
+Log in to your JFrog account
+
+Generate an Identity Token
+
+Replace the API key usage in your tools/scripts
+
+Detailed instructions can be found in this guide:
+👉 How to Get an Identity Token in 3 Steps
+
+⏳ Deadline:
+Your current API key will expire on [Insert Date: 10 days from now].
+Please complete the transition before this date to avoid disruptions.
+
+If you have any questions or need assistance, feel free to reach out to [your support team/contact info].
+
+Thank you for your attention to this important update.
+
+Best regards,
+[Your Name / Team Name]
+[Organization or DevOps Team]
+
