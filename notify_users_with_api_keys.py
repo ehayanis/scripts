@@ -3,6 +3,8 @@ from ldap3 import Server, Connection, ALL
 import requests
 from datetime import datetime, timedelta
 import yagmail
+import smtplib
+from email.message import EmailMessage
 
 # === CONFIGURATION ===
 
@@ -63,6 +65,18 @@ def send_email_notification(to_email, username, last_login):
     yag.send(to=to_email, subject=EMAIL_SUBJECT, contents=body)
     print(f"Email sent to {to_email} for user {username}.")
 
+def send_email_notification(to_email, username, last_login):
+    msg = EmailMessage()
+    msg['Subject'] = EMAIL_SUBJECT
+    msg['From'] = 'no-reply@yourdomain.com'  # change as needed
+    msg['To'] = to_email
+    msg.set_content(EMAIL_BODY_TEMPLATE.format(username=username, last_login=last_login.strftime('%Y-%m-%d')))
+
+    with smtplib.SMTP('localhost') as server:
+        server.send_message(msg)
+
+    print(f"Email sent to {to_email} for user {username}.")
+    
 # === MAIN ===
 
 def main():
