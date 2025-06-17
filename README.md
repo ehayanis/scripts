@@ -144,3 +144,24 @@ Best regards,
 2025-06-17T11:13:45Z ERR Error calling external API for project cagip-secuv11-dev: API call failed with status: 404
 2025-06-17T11:13:45Z ERR Couldn't read Project fields for project {cagip development secuv11  []  }: Spec.Stages empty. service=project
 2025-06-17T11:13:45Z ERR Error handling project cagip-secuv11-dev: Spec.Stages empty.
+
+
+2025-06-17T11:31:10Z INF IsV2Project: Project cagip-secuv12-dev has APIVersion: ''
+2025-06-17T11:31:10Z INF IsV2Project: Project cagip-secuv12-dev identified as v2 based on missing stages
+2025-06-17T11:31:10Z INF IsV2Project: Project cagip-secuv12-dev is v2: true
+2025-06-17T11:31:10Z INF Calling external API for tenant: cagip, project: secuv12 service=externalapi
+2025-06-17T11:31:10Z ERR API call failed with status: 404 service=externalapi
+2025-06-17T11:31:10Z ERR Error calling external API for project cagip-secuv12-dev: API call failed with status: 404
+2025-06-17T11:31:10Z INF IsV2Project: Project cagip-secuv12-dev has APIVersion: ''
+2025-06-17T11:31:10Z INF IsV2Project: Project cagip-secuv12-dev identified as v2 based on missing stages
+2025-06-17T11:31:10Z INF IsV2Project: Project cagip-secuv12-dev is v2: true
+2025-06-17T11:31:10Z INF Setting default stages for v2 project cagip-secuv12-dev service=project
+2025-06-17T11:31:10Z INF Creation of Repository cagip-secuv12-docker-stable-intranet successful. service=artifactory
+2025-06-17T11:31:11Z ERR Unable to retrieve CN from group :  service=artifactory
+Technical error occured when looking at existing group:  GET https://registry-iso-prd.saas.cagip.group.gca/artifactory/api/security/groups: 406 [{Status:406 Message:Not Acceptable}]
+2025-06-17T11:31:11Z INF Users cagip_secuv12_intranet_k8s_reader created service=artifactory
+2025-06-17T11:31:11Z INF Password created and stored in Vault server for user cagip_secuv12_intranet_jenkins_writer service=artifactory
+2025-06-17T11:31:12Z INF Users cagip_secuv12_intranet_jenkins_writer created service=artifactory
+2025-06-17T11:31:12Z INF Permission cagip-secuv12-docker-allrepos-intranet-ro created, status code is 201 service=artifactory
+2025-06-17T11:31:22Z ERR Technical Error occured during permission creation/update: 'PUT https://registry-iso-prd.saas.cagip.group.gca/artifactory/api/security/permissions/cagip-secuv12-docker-development-intranet-ro: 400 [{Status:400 Message:Group name cannot be empty}]' service=artifactory
+2025-06-17T11:31:22Z INF Creating docker config secret: project-registries for namespace: cagip-secuv12-dev service=imagepullsecrets
