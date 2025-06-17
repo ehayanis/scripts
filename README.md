@@ -135,3 +135,12 @@ Best regards,
 [Your Name / Team Name]
 [Organization or DevOps Team]
 
+
+2025-06-17T11:13:45Z INF IsV2Project: Project cagip-secuv11-dev has APIVersion: ''
+2025-06-17T11:13:45Z INF IsV2Project: Project cagip-secuv11-dev identified as v2 based on missing stages
+2025-06-17T11:13:45Z INF IsV2Project: Project cagip-secuv11-dev is v2: true
+2025-06-17T11:13:45Z INF Calling external API for tenant: cagip, project: secuv11 service=externalapi
+2025-06-17T11:13:45Z ERR API call failed with status: 404 service=externalapi
+2025-06-17T11:13:45Z ERR Error calling external API for project cagip-secuv11-dev: API call failed with status: 404
+2025-06-17T11:13:45Z ERR Couldn't read Project fields for project {cagip development secuv11  []  }: Spec.Stages empty. service=project
+2025-06-17T11:13:45Z ERR Error handling project cagip-secuv11-dev: Spec.Stages empty.
