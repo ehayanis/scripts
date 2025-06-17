@@ -113,6 +113,24 @@ If you have any questions or need assistance, feel free to reach out to [your su
 
 Thank you for your attention to this important update.
 
+
+
+
+2025-06-17T10:48:31Z INF IsV2Project: Project cagip-secuv8-dev has APIVersion: ''
+2025-06-17T10:48:31Z INF IsV2Project: Project cagip-secuv8-dev is v2: false
+2025-06-17T10:48:32Z INF Creation of Repository cagip-secuv8-docker-scratch-intranet successful. service=artifactory
+2025-06-17T10:48:32Z ERR Unable to retrieve CN from group :  service=artifactory
+Technical error occured when looking at existing group:  GET https://registry-iso-prd.saas.cagip.group.gca/artifactory/api/security/groups: 406 [{Status:406 Message:Not Acceptable}]
+2025-06-17T10:48:33Z INF Users cagip_secuv8_intranet_k8s_reader created service=artifactory
+2025-06-17T10:48:33Z INF Password created and stored in Vault server for user cagip_secuv8_intranet_jenkins_writer service=artifactory
+2025-06-17T10:48:34Z INF Users cagip_secuv8_intranet_jenkins_writer created service=artifactory
+2025-06-17T10:48:39Z INF Permission cagip-secuv8-docker-allrepos-intranet-ro created, status code is 201 service=artifactory
+2025-06-17T10:48:44Z ERR Technical Error occured during permission creation/update: 'PUT https://registry-iso-prd.saas.cagip.group.gca/artifactory/api/security/permissions/cagip-secuv8-docker-development-intranet-ro: 400 [{Status:400 Message:Group name cannot be empty}]' service=artifactory
+2025-06-17T10:48:44Z INF Permission cagip-secuv8-docker-allrepos-intranet-rw created, status code is 201 service=artifactory
+2025-06-17T10:48:49Z ERR Technical Error occured during permission creation/update: 'PUT https://registry-iso-prd.saas.cagip.group.gca/artifactory/api/security/permissions/cagip-secuv8-docker-development-intranet-rw: 400 [{Status:400 Message:Group name cannot be empty}]' service=artifactory
+2025-06-17T10:48:49Z INF Creating docker config secret: project-registries for namespace: cagip-secuv8-dev service=imagepullsecrets
+
+
 Best regards,
 [Your Name / Team Name]
 [Organization or DevOps Team]
