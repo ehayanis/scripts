@@ -165,3 +165,28 @@ Technical error occured when looking at existing group:  GET https://registry-is
 2025-06-17T11:31:12Z INF Permission cagip-secuv12-docker-allrepos-intranet-ro created, status code is 201 service=artifactory
 2025-06-17T11:31:22Z ERR Technical Error occured during permission creation/update: 'PUT https://registry-iso-prd.saas.cagip.group.gca/artifactory/api/security/permissions/cagip-secuv12-docker-development-intranet-ro: 400 [{Status:400 Message:Group name cannot be empty}]' service=artifactory
 2025-06-17T11:31:22Z INF Creating docker config secret: project-registries for namespace: cagip-secuv12-dev service=imagepullsecrets
+
+
+Objet : Accès aux catalogues d'entités dans PSSIT pour automatisation des souscriptions
+
+Bonjour [Nom du destinataire],
+
+Je viens de mettre à jour l’operator Kubernetes qui gère la création de dépôts dans Artifactory. Désormais, une v2 du CRD est disponible : elle ne crée plus directement les dépôts, mais déclenche une souscription à l’offre "Artifactory Repository" via l’API SOAPI.
+
+L’objectif est d’orchestrer automatiquement cette souscription lorsque quelqu’un active l’offre "Kubernative Namespace". En résumé :
+➡️ Une souscription à "Kubernative Namespace" entraîne automatiquement une souscription à "Artifactory Repository".
+
+Cependant, j’ai rencontré une difficulté : dans PSSIT, les offres sont réparties en catalogues par entité (ex : CATS, DSIN, etc.).
+Pour que la souscription à "Artifactory Repository" fonctionne correctement, il faut qu’elle se fasse dans le même catalogue que celui de la souscription "Kubernative Namespace".
+
+Je cherche donc à savoir comment accéder à l’ensemble des catalogues d’entités via PSSIT ou un autre moyen, afin de :
+
+Identifier dynamiquement dans quel catalogue se trouve la souscription initiale
+
+Répliquer cette information pour déclencher la souscription à "Artifactory Repository" dans le bon contexte (même entité)
+
+Peux-tu m’indiquer s’il existe une API ou un mécanisme pour obtenir cette information ?
+Ou éventuellement, à qui je pourrais m’adresser pour y accéder ?
+
+Merci d’avance pour ton aide,
+[Ta signature]
