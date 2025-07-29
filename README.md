@@ -185,6 +185,88 @@ Identifier dynamiquement dans quel catalogue se trouve la souscription initiale
 
 Répliquer cette information pour déclencher la souscription à "Artifactory Repository" dans le bon contexte (même entité)
 
+
+
+
+
+
+
+TASK [Pull OnlyOffice image] ***************************************************
+task path: /runner/project/ff3.yml:33
+<XXXX> ESTABLISH SSH CONNECTION FOR USER: YYY
+<XXXX> SSH: EXEC sshpass -d12 ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o 'User="YYY"' -o ConnectTimeout=10 -o 'ControlPath="/runner/cp/e7a8233fba"' XXXX '/bin/sh -c '"'"'echo ~YYY && sleep 0'"'"''
+<XXXX> (0, b'/home/YYY\\n', b'')
+<XXXX> ESTABLISH SSH CONNECTION FOR USER: YYY
+<XXXX> SSH: EXEC sshpass -d12 ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o 'User="YYY"' -o ConnectTimeout=10 -o 'ControlPath="/runner/cp/e7a8233fba"' XXXX '/bin/sh -c '"'"'( umask 77 && mkdir -p "` echo /var/tmp `"&& mkdir "` echo /var/tmp/ansible-tmp-1753796075.309591-47-53493719016930 `" && echo ansible-tmp-1753796075.309591-47-53493719016930="` echo /var/tmp/ansible-tmp-1753796075.309591-47-53493719016930 `" ) && sleep 0'"'"''
+<XXXX> (0, b'ansible-tmp-1753796075.309591-47-53493719016930=/var/tmp/ansible-tmp-1753796075.309591-47-53493719016930\\n', b'')
+Using module file /runner/requirements_collections/ansible_collections/containers/podman/plugins/modules/podman_image.py
+<XXXX> PUT /runner/.ansible/tmp/ansible-local-17nimhziju/tmpaazvzah2 TO /var/tmp/ansible-tmp-1753796075.309591-47-53493719016930/AnsiballZ_podman_image.py
+<XXXX> SSH: EXEC sshpass -d12 sftp -o BatchMode=no -b - -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o 'User="YYY"' -o ConnectTimeout=10 -o 'ControlPath="/runner/cp/e7a8233fba"' '[XXXX]'
+<XXXX> (0, b'sftp> put /runner/.ansible/tmp/ansible-local-17nimhziju/tmpaazvzah2 /var/tmp/ansible-tmp-1753796075.309591-47-53493719016930/AnsiballZ_podman_image.py\\n', b'')
+<XXXX> ESTABLISH SSH CONNECTION FOR USER: YYY
+<XXXX> SSH: EXEC sshpass -d12 ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o 'User="YYY"' -o ConnectTimeout=10 -o 'ControlPath="/runner/cp/e7a8233fba"' XXXX '/bin/sh -c '"'"'setfacl -m u:docker:r-x /var/tmp/ansible-tmp-1753796075.309591-47-53493719016930/ /var/tmp/ansible-tmp-1753796075.309591-47-53493719016930/AnsiballZ_podman_image.py && sleep 0'"'"''
+<XXXX> (0, b'', b'')
+<XXXX> ESTABLISH SSH CONNECTION FOR USER: YYY
+<XXXX> SSH: EXEC sshpass -d12 ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o 'User="YYY"' -o ConnectTimeout=10 -o 'ControlPath="/runner/cp/e7a8233fba"' -tt XXXX '/bin/sh -c '"'"'sudo -H -S -n  -u docker /bin/sh -c '"'"'"'"'"'"'"'"'echo BECOME-SUCCESS-zyjxoynvykglsfyvpvxxvdzwytgubtwg ; /usr/libexec/platform-python /var/tmp/ansible-tmp-1753796075.309591-47-53493719016930/AnsiballZ_podman_image.py'"'"'"'"'"'"'"'"' && sleep 0'"'"''
+Escalation succeeded
+<XXXX> (1, b'\\r\\n{"failed": true, "msg": "Failed to pull image silca-tools-docker-stable-intranet.registry.saas.cagip.group.gca/fakename:9.0", "invocation": {"module_args": {"name": "silca-tools-docker-stable-intranet.registry.saas.cagip.group.gca/fakename", "tag": "9.0", "pull": true, "push": false, "force": false, "state": "present", "executable": "podman", "build": {"force_rm": false, "format": "oci", "cache": true, "rm": true, "annotation": null, "file": null, "container_file": null, "volume": null, "extra_args": null, "target": null}, "push_args": {"compress": null, "format": null, "remove_signatures": null, "sign_by": null, "dest": null, "extra_args": null, "transport": null}, "arch": null, "pull_extra_args": null, "path": null, "validate_certs": null, "auth_file": null, "username": null, "password": null, "ca_cert_dir": null, "quadlet_dir": null, "quadlet_filename": null, "quadlet_file_mode": null, "quadlet_options": null}}}\\r\\n', b'Shared connection to XXXX closed.\\r\\n')
+<XXXX> Failed to connect to the host via ssh: Shared connection to XXXX closed.
+<XXXX> ESTABLISH SSH CONNECTION FOR USER: YYY
+<XXXX> SSH: EXEC sshpass -d12 ssh -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o 'User="YYY"' -o ConnectTimeout=10 -o 'ControlPath="/runner/cp/e7a8233fba"' XXXX '/bin/sh -c '"'"'rm -f -r /var/tmp/ansible-tmp-1753796075.309591-47-53493719016930/ > /dev/null 2>&1 && sleep 0'"'"''
+<XXXX> (0, b'', b'')
+fatal: [XXXX]: FAILED! => {
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "arch": null,
+            "auth_file": null,
+            "build": {
+                "annotation": null,
+                "cache": true,
+                "container_file": null,
+                "extra_args": null,
+                "file": null,
+                "force_rm": false,
+                "format": "oci",
+                "rm": true,
+                "target": null,
+                "volume": null
+            },
+            "ca_cert_dir": null,
+            "executable": "podman",
+            "force": false,
+            "name": "silca-tools-docker-stable-intranet.registry.saas.cagip.group.gca/fakename",
+            "password": null,
+            "path": null,
+            "pull": true,
+            "pull_extra_args": null,
+            "push": false,
+            "push_args": {
+                "compress": null,
+                "dest": null,
+                "extra_args": null,
+                "format": null,
+                "remove_signatures": null,
+                "sign_by": null,
+                "transport": null
+            },
+            "quadlet_dir": null,
+            "quadlet_file_mode": null,
+            "quadlet_filename": null,
+            "quadlet_options": null,
+            "state": "present",
+            "tag": "9.0",
+            "username": null,
+            "validate_certs": null
+        }
+    },
+    "msg": "Failed to pull image silca-tools-docker-stable-intranet.registry.saas.cagip.group.gca/fakename:9.0"
+}
+
+PLAY RECAP *********************************************************************
+XXXX : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
+
 Peux-tu m’indiquer s’il existe une API ou un mécanisme pour obtenir cette information ?
 Ou éventuellement, à qui je pourrais m’adresser pour y accéder ?
 
